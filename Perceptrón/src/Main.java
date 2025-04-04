@@ -20,8 +20,6 @@ public class Main {
         do {
             // Mostrar el menú
             System.out.println("\nSeleccione la compuerta que desea entrenar:");
-            System.out.println("\nNo es posible entrenar la compuerta AND sin el sesgo ya que no es linealmente separable.");
-            System.out.println("AND no converge con el perceptrón simple.");
             System.out.println("1. AND");
             System.out.println("2. OR");
             System.out.println("3. Salir");
@@ -32,9 +30,18 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                   perceptron.entrenarSS(entradasAND, resultadosAND);
 
-                   
+                /* perceptron.entrenarSS2(entradasAND, resultadosAND);  */
+                      
+                
+
+                    perceptron.entrenarSS(entradasAND, resultadosAND);
+                    System.out.println("\nPredicción de la compuerta AND:");
+                    for (int i = 0; i < entradasAND.length; i++) {
+                        int prediccion = perceptron.predecir(entradasAND[i]);
+                        System.out.println(entradasAND[i][0] + " AND " + entradasAND[i][1] + " = " + prediccion);
+                    }  
+                                  
                    
                    
                     break;
