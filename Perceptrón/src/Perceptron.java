@@ -85,72 +85,6 @@ public class Perceptron {
     }
 
 
-  
-
-
-    public void entrenarSS(int[][] entradas, int[] resultadosEsperados) {
-        int epoca = 0;
-        double errorTotal;
-    
-        // Inicializar 3 pesos (pesos[0] actuará como sesgo implícito)
-        pesos = new double[3]; 
-        pesos[0] = random.nextDouble() * 2 - 1; // w0 
-        pesos[1] = random.nextDouble() * 2 - 1; // w1 
-        pesos[2] = random.nextDouble() * 2 - 1; // w2 
-    
-        do {
-            errorTotal = 0;
-            epoca++;
-            System.out.println("\n========================");
-            System.out.println("Época " + epoca);
-            System.out.println("========================");
-    
-            for (int j = 0; j < entradas.length; j++) {
-                System.out.println("\nIteración " + (j + 1) + ":");
-                System.out.println("Entrada: [" + entradas[j][0] + ", " + entradas[j][1] + "], Resultado esperado: " + resultadosEsperados[j]);
-    
-                double entradaConBias = 1.0; // Esto se multiplicará por pesos[0]
-                double x1 = entradas[j][0];  // Se multiplicará por pesos[1]
-                double x2 = entradas[j][1];  // Se multiplicará por pesos[2]
-    
-                // suma ponderada
-                double sumaPonderada = pesos[0] * entradaConBias + pesos[1] * x1 + pesos[2] * x2;
-                System.out.println("Suma Ponderada (con sesgo implícito): " + sumaPonderada);
-    
-                // Función escalón (clasificación binaria)
-                int salida = (sumaPonderada >= 0) ? 1 : 0;
-                System.out.println("Salida (Escalón): " + salida);
-    
-                // Calcular el error
-                double error = resultadosEsperados[j] - salida;
-                System.out.println("Error: " + error);
-                errorTotal += Math.abs(error);
-    
-                // Actualizar los 3 pesos 
-                double peso0Antes = pesos[0];
-                double peso1Antes = pesos[1];
-                double peso2Antes = pesos[2];
-    
-                pesos[0] += tasaAprendizaje * error * entradaConBias; // Actualizar w0 
-                pesos[1] += tasaAprendizaje * error * x1;            // Actualizar w1
-                pesos[2] += tasaAprendizaje * error * x2;            // Actualizar w2
-    
-                System.out.println("Pesos antes de actualizar: [" + peso0Antes + ", " + peso1Antes + ", " + peso2Antes + "]");
-                System.out.println("Pesos actualizados: [" + pesos[0] + ", " + pesos[1] + ", " + pesos[2] + "]");
-            }
-    
-            System.out.println("Error total en esta época: " + errorTotal);
-
-        } while (errorTotal > errorUmbral);
-    
-        System.out.println("\n¡Entrenamiento completado en " + epoca + " épocas!");
-        System.out.println("Pesos finales: [w0 (sesgo implícito) = " + pesos[0] + ", w1 = " + pesos[1] + ", w2 = " + pesos[2] + "]");
-    }
-    
-
-    public int funcionEscalon(double sumaPonderada) {
-        return sumaPonderada >= 0 ? 1 : 0;
-    }
 
     public void entrenarSS2(int[][] entradas, int[] resultadosEsperados) {
         int epoca = 0;
@@ -172,8 +106,8 @@ public class Perceptron {
                 System.out.println("Suma Ponderada: " + sumaPonderada);
 
                 
-                int escalon = funcionEscalon(sumaPonderada);
-                double salidaRedondeada = sigmoide(escalon);
+             
+                double salidaRedondeada = (sumaPonderada >= 0.5) ? 1 : 0;;
                 System.out.println("Activación (redondeada): " + salidaRedondeada);
 
                 // Calcular el error
@@ -210,6 +144,12 @@ public class Perceptron {
         } while (errorTotal > errorUmbral); // Repetir mientras haya errores
 
         
+    }
+    
+    public int predecirSS(int[] entrada) {
+        double sumaPonderada = pesos[0] * entrada[0] + pesos[1] * entrada[1]; // sin sesgo
+        double salidaRedondeada = (sumaPonderada >= 0.5) ? 1 : 0;
+        return (int) salidaRedondeada;
     }
 
 
