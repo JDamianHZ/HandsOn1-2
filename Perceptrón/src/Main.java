@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 
 public class Main {
-    public static void main(String[] args) {
+    1public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Compuertas compuertas = new Compuertas();
 
@@ -31,19 +31,12 @@ public class Main {
             switch (opcion) {
                 case 1:
 
-                /* perceptron.entrenarSS2(entradasAND, resultadosAND);  */
-                      
-                
-
-                    perceptron.entrenarSS(entradasAND, resultadosAND);
-                    System.out.println("\nPredicción de la compuerta AND:");
-                    for (int i = 0; i < entradasAND.length; i++) {
-                        int prediccion = perceptron.predecir(entradasAND[i]);
-                        System.out.println(entradasAND[i][0] + " AND " + entradasAND[i][1] + " = " + prediccion);
-                    }  
-                                  
-                   
-                   
+                 perceptron.entrenarSS2(entradasAND, resultadosAND);  
+                 System.out.println("\nPredicción de la compuerta AND:");
+                 for (int i = 0; i < entradasAND.length; i++) {
+                     int prediccion = perceptron.predecirSS(entradasAND[i]);
+                     System.out.println(entradasAND[i][0] + " AND " + entradasAND[i][1] + " = " + prediccion);
+                 }                        
                     break;
 
                 case 2:
